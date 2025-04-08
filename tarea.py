@@ -4,10 +4,32 @@ from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
-class Cola(Base):
-    __tablename__ = 'colas'
-    id = Column(Integer, primary_key=True)
-    elementos = Column(String) # Almacenado como JSON
+class ColaMisiones(Base):
+    def __init__(self):
+        self.data = []
+
+    def enqueue(self, mision):
+    # Añade una misión al final de la cola.
+        self.data.append(mision)
+
+    def dequeue(self):
+        # Elimina y retorna la primera misión de la cola.
+        if self.is_empty():
+            print("La cola está vacía.")
+            return None
+        return self.data.pop(0)
+
+    def first(self):
+        if self.is_empty():
+            print("La cola está vacía.")
+            return None
+        return self.data[0]
+    
+    def is_empty(self):
+        return len(self.data) == 0
+
+    def size(self):
+        return len(self.data)
 
 class Mision(Base):
     __tablename__ = 'misiones'
@@ -28,6 +50,8 @@ class Personaje(Base):
     nombre = Column(String(30), nullable=False)
 
 class MisionPersonaje(Base):
+    # Tabla intermedia entre personaje y mision
+    
     __tablename__ = 'misiones_personaje'
 
     personaje_id = Column(Integer, ForeignKey('personajes.id'), primary_key=True)
