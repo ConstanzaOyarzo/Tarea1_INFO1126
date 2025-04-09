@@ -1,5 +1,4 @@
 from sqlalchemy import Column, Integer, String, Text, Enum, DateTime, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from BaseDatos import Base
 
@@ -20,6 +19,8 @@ class Personaje(Base):
 
     id = Column(Integer, primary_key=True)
     nombre = Column(String(30), nullable=False)
+
+    misiones = relationship("MisionPersonaje", back_populates="personajes")
 
 class MisionPersonaje(Base):
     # Tabla intermedia entre personaje y mision
