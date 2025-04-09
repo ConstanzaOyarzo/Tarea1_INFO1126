@@ -5,6 +5,10 @@ from datetime import datetime
 from BaseDatos import SessionLocal, engine, get_db # Base de datos
 from ModelosDB import Personaje, Mision, MisionPersonaje # Modelos
 
+from ColaMisiones import ColaMisiones
+
+cola = ColaMisiones()
+
 app = FastAPI()
 
 # Crear las tablas en la base de datos
